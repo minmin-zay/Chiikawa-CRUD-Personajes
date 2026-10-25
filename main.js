@@ -114,7 +114,7 @@ function cambiarVista(favoritos) {
   $("tituloColeccion").textContent = favoritos ? "Mis favoritos ♡" : "Mi colección";
   $("descripcionColeccion").textContent = favoritos
     ? "Aquí están los amiguitos que marcaste con un corazón."
-    : "Un lugar para guardar a todos mis amiguitos.";
+    : "Un lugar para guardar a todos los amigos de Chiikawa.";
   renderizarGrid();
 }
 

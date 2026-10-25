@@ -21,4 +21,4 @@ Abre `index.html` en el navegador. Para añadir un personaje, selecciona **Agreg
 
 ## Recursos
 - HTML5, CSS, JavaScript, [Bulma](https://bulma.io/) y [Google Fonts — Fredoka](https://fonts.google.com/specimen/Fredoka).
-- Ilustraciones PNG sencillas creadas para esta práctica. Los personajes Chiikawa son creación de Nagano.
+- Ilustraciones PNG sencillas utilizadas para esta práctica. Los personajes Chiikawa son creación de Nagano.
