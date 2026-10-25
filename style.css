@@ -270,18 +270,6 @@ body {
   animation: saltito .45s ease;
 }
 
-@keyframes saltito {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
 @media (max-width: 768px) {
   .bienvenida {
     text-align: center;

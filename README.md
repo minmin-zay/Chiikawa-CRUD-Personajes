@@ -2,9 +2,9 @@
 
 **Alumno:** Ana Maritza Arellano Ortiz
 
-**Descripción:** Aplicación web de una sola página para administrar una colección de personajes inspirada en Chiikawa. Proyecto académico de LAD319.
+**Descripción:** Aplicación web de una sola página para administrar una colección de personajes inspirada en Chiikawa.
 
-**Enlace a GitHub Pages:**
+**Enlace a GitHub Pages:** https://minmin-zay.github.io/Chiikawa-CRUD-Personajes/
 
 ## Funciones
 - Ver personajes en tarjetas responsivas y consultar sus detalles.
@@ -20,6 +20,5 @@ Abre `index.html` en el navegador. Para añadir un personaje, selecciona **Agreg
 
 
 ## Recursos
-- HTML5, CSS3, JavaScript, [Bulma](https://bulma.io/) y [Google Fonts — Fredoka](https://fonts.google.com/specimen/Fredoka).
-- Ilustraciones PNG sencillas creadas para esta práctica, inspiradas en el estilo general de la serie. No son arte oficial. Los personajes Chiikawa son creación de Nagano.
-- `personajes-ejemplo.json` contiene seis registros de ejemplo; `BITACORA.md` explica decisiones de implementación.
+- HTML5, CSS, JavaScript, [Bulma](https://bulma.io/) y [Google Fonts — Fredoka](https://fonts.google.com/specimen/Fredoka).
+- Ilustraciones PNG sencillas creadas para esta práctica. Los personajes Chiikawa son creación de Nagano.
