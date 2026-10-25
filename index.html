@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,7 +8,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
   <link rel="stylesheet" href="./style.css">
+  <script src="./main.js" defer></script>
 </head>
+
 <body>
   <section class="hero bienvenida">
     <div class="hero-body">
@@ -17,7 +20,7 @@
             <p class="etiqueta">✿ UN MUNDO PEQUEÑITO Y ADORABLE ✿</p>
             <h1 class="title is-1">Chiikawa <span>& Friends ♡</span></h1>
             <p class="subtitle">¡Bienvenido a mi rincón de personajes favoritos!</p>
-            <p>Conoce a estos pequeños amigos y guarda tu colección.</p>
+            <p>Conoce a estos pequeños amigos y marca con un corazón a tus favoritos.</p>
             <a class="button boton-rosa mt-5" href="#coleccion">Conocer a mis amigos ♡</a>
           </div>
           <div class="column is-6">
@@ -31,69 +34,48 @@
       </div>
     </div>
   </section>
+
   <main class="section" id="coleccion">
     <div class="container">
-      <p class="etiqueta">♡ MIS PERSONAJES ♡</p>
-      <h2 class="title is-3">Mi colección</h2>
-      <p class="mb-5">Un lugar para guardar a todos mis amiguitos.</p>
-      <div class="columns is-multiline">
-        <div class="column is-one-third-desktop is-half-tablet">
-          <article class="card tarjeta">
-            <div class="foto"><img src="./imagenes/chiikawa.png" alt="Chiikawa"></div>
-            <div class="card-content">
-              <h3 class="title is-4">Chiikawa</h3>
-              <span class="tag">Tierno</span>
-            </div>
-          </article>
+      <div class="columns is-vcentered">
+        <div class="column is-5">
+          <p class="etiqueta">♡ MIS PERSONAJES ♡</p>
+          <h2 class="title is-3" id="tituloColeccion">Mi colección</h2>
+          <p id="descripcionColeccion">Un lugar para guardar a todos los amigos de Chiikawa.</p>
         </div>
-        <div class="column is-one-third-desktop is-half-tablet">
-          <article class="card tarjeta">
-            <div class="foto"><img src="./imagenes/hachiware.png" alt="Hachiware"></div>
-            <div class="card-content">
-              <h3 class="title is-4">Hachiware</h3>
-              <span class="tag">Optimista</span>
-            </div>
-          </article>
-        </div>
-        <div class="column is-one-third-desktop is-half-tablet">
-          <article class="card tarjeta">
-            <div class="foto"><img src="./imagenes/usagi.png" alt="Usagi"></div>
-            <div class="card-content">
-              <h3 class="title is-4">Usagi</h3>
-              <span class="tag">Aventurero</span>
-            </div>
-          </article>
-        </div>
-        <div class="column is-one-third-desktop is-half-tablet">
-          <article class="card tarjeta">
-            <div class="foto"><img src="./imagenes/momonga.png" alt="Momonga"></div>
-            <div class="card-content">
-              <h3 class="title is-4">Momonga</h3>
-              <span class="tag">Travieso</span>
-            </div>
-          </article>
-        </div>
-        <div class="column is-one-third-desktop is-half-tablet">
-          <article class="card tarjeta">
-            <div class="foto"><img src="./imagenes/kurimanju.png" alt="Kurimanju"></div>
-            <div class="card-content">
-              <h3 class="title is-4">Kurimanju</h3>
-              <span class="tag">Tranquilo</span>
-            </div>
-          </article>
-        </div>
-        <div class="column is-one-third-desktop is-half-tablet">
-          <article class="card tarjeta">
-            <div class="foto"><img src="./imagenes/rakko.png" alt="Rakko"></div>
-            <div class="card-content">
-              <h3 class="title is-4">Rakko</h3>
-              <span class="tag">Valiente</span>
-            </div>
-          </article>
+        <div class="column is-4">
+          <input class="input" id="busqueda" type="search" placeholder="Buscar por nombre o rol..."
+            aria-label="Buscar personajes">
         </div>
       </div>
+
+      <p class="contador" id="contador"></p>
+      <div class="columns is-multiline" id="grid"></div>
+      <div class="notification estado-vacio is-hidden" id="vacio">
+        <p id="mensajeVacio"></p>
+        <button class="button boton-azul mt-3 is-hidden" id="limpiar">Limpiar búsqueda</button>
+      </div>
+      <p class="notification is-success is-light is-hidden mt-4" id="aviso" role="status"></p>
     </div>
   </main>
-  <footer class="footer"><p>Hecho con cariño ♡ · Proyecto escolar inspirado en Chiikawa</p></footer>
+
+  <footer class="footer">
+    <p>Hecho con cariño ♡ · Proyecto inspirado en Chiikawa</p>
+  </footer>
+
+  <div class="modal" id="modalDetalle">
+    <div class="modal-background cerrar-modal"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Un pequeño amigo ♡</p>
+        <button class="delete cerrar-modal" aria-label="Cerrar"></button>
+      </header>
+      <section class="modal-card-body" id="detalle"></section>
+      <footer class="modal-card-foot botones-modal"><button class="button cerrar-modal" type="button">Volver</button>
+      </footer>
+    </div>
+  </div>
+
 </body>
+
 </html>

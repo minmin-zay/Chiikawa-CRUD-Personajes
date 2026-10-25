@@ -1,6 +1,8 @@
 :root {
+  color-scheme: light;
   --crema: #fffaf0;
   --rosa: #ffd7e4;
+  --azul: #cdeaf8;
   --cafe: #67564c;
 }
 
@@ -12,12 +14,16 @@ body {
 
 .title,
 .subtitle,
-.button {
+.label,
+.button,
+.input,
+.textarea {
   font-family: 'Fredoka', sans-serif;
 }
 
 .title,
-.subtitle {
+.subtitle,
+.label {
   color: var(--cafe) !important;
 }
 
@@ -68,8 +74,24 @@ body {
   width: 36%;
 }
 
-.button {
+.button,
+.input,
+.textarea {
   border-radius: 16px;
+}
+
+.input,
+.textarea {
+  background: white;
+  color: var(--cafe);
+  border: 2px solid #f3dbcd;
+  box-shadow: none;
+}
+
+.input:focus,
+.textarea:focus {
+  border-color: #e7a1b8;
+  box-shadow: none;
 }
 
 .boton-rosa {
@@ -84,28 +106,25 @@ body {
   color: #805665;
 }
 
-.footer {
-  padding: 2rem;
-  text-align: center;
-  background: #fce4e8;
-  color: var(--cafe);
+.boton-azul {
+  background: var(--azul);
+  color: #4c798e;
+  border: none;
+  font-weight: 600;
 }
 
-@media (max-width: 768px) {
-  .bienvenida {
-    text-align: center;
-  }
+.boton-azul:hover {
+  background: #b7e1f5;
+  color: #4c798e;
+}
 
-  .bienvenida .hero-body {
-    padding: 3rem 1rem;
-  }
-
-  .amigos {
-    margin-top: 22px;
-  }
+.contador {
+  margin: 20px 0;
+  color: #9e8a7d;
 }
 
 .tarjeta {
+  position: relative;
   height: 100%;
   border-radius: 25px;
   overflow: hidden;
@@ -127,6 +146,7 @@ body {
 }
 
 .foto {
+  position: relative;
   height: 205px;
   background: #fff4d9;
   display: flex;
@@ -135,7 +155,91 @@ body {
 }
 
 .foto img {
+  position: absolute;
   height: 180px;
-  max-width: 90%;
+  width: 90%;
   object-fit: contain;
+}
+
+.inicial {
+  font-size: 85px;
+  color: #e8acbd;
+}
+
+.estado-vacio {
+  background: #fff1e8;
+  color: var(--cafe);
+  text-align: center;
+  border-radius: 20px;
+}
+
+.modal-card {
+  border-radius: 22px;
+  overflow: hidden;
+}
+
+.modal-card-head,
+.modal-card-foot {
+  background: #fff2f6;
+  border: none;
+}
+
+.modal-card-title {
+  font-family: 'Fredoka', sans-serif;
+  color: var(--cafe);
+}
+
+.modal-card-body {
+  background: #fffdf8;
+  color: #503e36;
+}
+
+.dato-personaje {
+  color: #503e36;
+}
+
+.dato-personaje strong {
+  color: #3e2e27;
+}
+
+.modal-card-body .foto {
+  border-radius: 20px;
+  max-width: 260px;
+  margin: auto auto 18px;
+}
+
+.botones-modal {
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 18px;
+}
+
+.botones-modal .button {
+  margin: 0 !important;
+}
+
+.footer {
+  padding: 2rem;
+  text-align: center;
+  background: #fce4e8;
+  color: var(--cafe);
+}
+
+@media (max-width: 768px) {
+  .bienvenida {
+    text-align: center;
+  }
+
+  .bienvenida .hero-body {
+    padding: 3rem 1rem;
+  }
+
+  .amigos {
+    margin-top: 22px;
+  }
+
+  .modal-card {
+    width: calc(100% - 24px);
+    margin: auto;
+  }
 }
