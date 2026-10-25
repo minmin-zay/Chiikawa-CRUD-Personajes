@@ -1,22 +1,141 @@
-:root { --crema: #fffaf0; --rosa: #ffd7e4; --cafe: #67564c; }
-body { background: var(--crema); color: var(--cafe); font-family: 'Fredoka', sans-serif; }
-.title, .subtitle, .button { font-family: 'Fredoka', sans-serif; }
-.title, .subtitle { color: var(--cafe) !important; }
-.bienvenida { background: #fff0f4; border-bottom: 3px dashed #f8d7bd; }
-.bienvenida .hero-body { padding: 4rem 1.5rem; }
-.bienvenida h1 { color: #e98cab !important; }
-.bienvenida h1 span { color: #92bfd2; }
-.bienvenida .subtitle { margin-top: 1rem; }
-.etiqueta { color: #dc8fa5; font-weight: 600; letter-spacing: 2px; margin-bottom: 12px; }
-.amigos { display: flex; align-items: flex-end; justify-content: center; background: #fffdf7; border-radius: 40px; padding: 25px 10px; }
-.amigos img { width: 32%; max-width: 175px; object-fit: contain; }
-.amigos img:nth-child(2) { width: 36%; }
-.button { border-radius: 16px; }
-.boton-rosa { background: var(--rosa); color: #805665; border: none; font-weight: 600; }
-.boton-rosa:hover { background: #ffc0d5; color: #805665; }
-.footer { padding: 2rem; text-align: center; background: #fce4e8; color: var(--cafe); }
+:root {
+  --crema: #fffaf0;
+  --rosa: #ffd7e4;
+  --cafe: #67564c;
+}
+
+body {
+  background: var(--crema);
+  color: var(--cafe);
+  font-family: 'Fredoka', sans-serif;
+}
+
+.title,
+.subtitle,
+.button {
+  font-family: 'Fredoka', sans-serif;
+}
+
+.title,
+.subtitle {
+  color: var(--cafe) !important;
+}
+
+.bienvenida {
+  background: #fff0f4;
+  border-bottom: 3px dashed #f8d7bd;
+}
+
+.bienvenida .hero-body {
+  padding: 4rem 1.5rem;
+}
+
+.bienvenida h1 {
+  color: #e98cab !important;
+}
+
+.bienvenida h1 span {
+  color: #92bfd2;
+}
+
+.bienvenida .subtitle {
+  margin-top: 1rem;
+}
+
+.etiqueta {
+  color: #dc8fa5;
+  font-weight: 600;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+.amigos {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: #fffdf7;
+  border-radius: 40px;
+  padding: 25px 10px;
+}
+
+.amigos img {
+  width: 32%;
+  max-width: 175px;
+  object-fit: contain;
+}
+
+.amigos img:nth-child(2) {
+  width: 36%;
+}
+
+.button {
+  border-radius: 16px;
+}
+
+.boton-rosa {
+  background: var(--rosa);
+  color: #805665;
+  border: none;
+  font-weight: 600;
+}
+
+.boton-rosa:hover {
+  background: #ffc0d5;
+  color: #805665;
+}
+
+.footer {
+  padding: 2rem;
+  text-align: center;
+  background: #fce4e8;
+  color: var(--cafe);
+}
+
 @media (max-width: 768px) {
-  .bienvenida { text-align: center; }
-  .bienvenida .hero-body { padding: 3rem 1rem; }
-  .amigos { margin-top: 22px; }
+  .bienvenida {
+    text-align: center;
+  }
+
+  .bienvenida .hero-body {
+    padding: 3rem 1rem;
+  }
+
+  .amigos {
+    margin-top: 22px;
+  }
+}
+
+.tarjeta {
+  height: 100%;
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px #d9cbbf55;
+  background: white;
+  text-align: center;
+}
+
+.tarjeta .card-content {
+  padding: 20px;
+}
+
+.tarjeta .tag {
+  background: #ffe9b2;
+  color: #523b25;
+  border: 1px solid #e8c985;
+  border-radius: 30px;
+  font-weight: 600;
+}
+
+.foto {
+  height: 205px;
+  background: #fff4d9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.foto img {
+  height: 180px;
+  max-width: 90%;
+  object-fit: contain;
 }
