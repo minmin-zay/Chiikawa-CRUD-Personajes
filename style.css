@@ -225,6 +225,11 @@ body {
   color: var(--cafe);
 }
 
+50% {
+  transform: translateY(-10px);
+}
+}
+
 @media (max-width: 768px) {
   .bienvenida {
     text-align: center;

@@ -41,11 +41,14 @@
         <div class="column is-5">
           <p class="etiqueta">♡ MIS PERSONAJES ♡</p>
           <h2 class="title is-3" id="tituloColeccion">Mi colección</h2>
-          <p id="descripcionColeccion">Un lugar para guardar a todos los amigos de Chiikawa.</p>
+          <p id="descripcionColeccion">Un lugar para guardar a todos mis amiguitos.</p>
         </div>
         <div class="column is-4">
           <input class="input" id="busqueda" type="search" placeholder="Buscar por nombre o rol..."
             aria-label="Buscar personajes">
+        </div>
+        <div class="column is-3">
+          <button class="button boton-rosa is-fullwidth" id="nuevo">+ Agregar amigo</button>
         </div>
       </div>
 
@@ -60,7 +63,7 @@
   </main>
 
   <footer class="footer">
-    <p>Hecho con cariño ♡ · Proyecto inspirado en Chiikawa</p>
+    <p>Hecho con cariño ♡ · Proyecto escolar inspirado en Chiikawa</p>
   </footer>
 
   <div class="modal" id="modalDetalle">
@@ -71,11 +74,50 @@
         <button class="delete cerrar-modal" aria-label="Cerrar"></button>
       </header>
       <section class="modal-card-body" id="detalle"></section>
-      <footer class="modal-card-foot botones-modal"><button class="button cerrar-modal" type="button">Volver</button>
+      <footer class="modal-card-foot botones-modal">
+        <button class="button boton-azul" id="editar">Modificar</button>
+        <button class="button is-danger is-light" id="eliminar">Eliminar</button>
+        <button class="button cerrar-modal">Volver</button>
       </footer>
     </div>
   </div>
 
+  <div class="modal" id="modalFormulario">
+    <div class="modal-background cerrar-modal"></div>
+    <form class="modal-card" id="formPersonaje">
+      <header class="modal-card-head">
+        <p class="modal-card-title" id="tituloFormulario">Agregar amigo ♡</p>
+        <button class="delete cerrar-modal" type="button" aria-label="Cerrar"></button>
+      </header>
+      <section class="modal-card-body">
+        <input id="idPersonaje" type="hidden">
+        <div class="field">
+          <label class="label" for="nombre">Nombre *</label>
+          <div class="control"><input class="input" id="nombre" maxlength="40" required></div>
+        </div>
+        <div class="field">
+          <label class="label" for="rol">Rol *</label>
+          <div class="control"><input class="input" id="rol" maxlength="30" placeholder="Ej. Aventurero" required></div>
+        </div>
+        <div class="field">
+          <label class="label" for="origen">Origen</label>
+          <div class="control"><input class="input" id="origen" maxlength="60" placeholder="Ej. Mundo Chiikawa"></div>
+        </div>
+        <div class="field">
+          <label class="label" for="imagen">Imagen PNG o JPG (URL o ruta)</label>
+          <div class="control"><input class="input" id="imagen" placeholder="imagenes/amigo.png"></div>
+        </div>
+        <div class="field">
+          <label class="label" for="descripcion">Descripción</label>
+          <div class="control"><textarea class="textarea" id="descripcion" rows="3" maxlength="300"></textarea></div>
+        </div>
+      </section>
+      <footer class="modal-card-foot botones-modal">
+        <button class="button boton-rosa" type="submit">Guardar ♡</button>
+        <button class="button cerrar-modal" type="button">Cancelar</button>
+      </footer>
+    </form>
+  </div>
 </body>
 
 </html>
