@@ -1,98 +1,82 @@
 const clave = "chiikawa_coleccion";
 const ejemplos = [
-  { "id": "1", 
-    "nombre": "Chiikawa", 
-    "rol": "Tierno", 
-    "origen": "Mundo Chiikawa", 
-    "imagen": "./imagenes/chiikawa.png", 
-    "descripcion": "Es tímido, amable y siempre intenta ser valiente." 
-  },
-  { 
-    "id": "2", 
-    "nombre": "Hachiware", 
-    "rol": "Optimista", "origen": 
-    "Mundo Chiikawa", 
-    "imagen": "./imagenes/hachiware.png", 
-    "descripcion": "Un amigo alegre que siempre ayuda a los demás." },
-  { 
-    "id": "3", 
-    "nombre": "Usagi", 
-    "rol": "Aventurero", 
-    "origen": "Mundo Chiikawa", 
-    "imagen": "./imagenes/usagi.png", 
-    "descripcion": "Le encanta divertirse y gritar ¡Yaha!" 
-  },
-  { 
-    "id": "4", 
-    "nombre": "Momonga", 
-    "rol": "Travieso", 
-    "origen": "Mundo Chiikawa", 
-    "imagen": "./imagenes/momonga.png", 
-    "descripcion": "Le gusta llamar la atención y parecer adorable." },
-  { 
-    "id": "5", 
-    "nombre": "Kurimanju", "rol": 
-    "Tranquilo", "origen": "Mundo Chiikawa", 
-    "imagen": "./imagenes/kurimanju.png", 
-    "descripcion": "Disfruta la comida, las bebidas y los momentos relajados." },
-  { "id": "6", 
-    "nombre": "Rakko", 
-    "rol": "Valiente", 
-    "origen": "Mundo Chiikawa", 
-    "imagen": "./imagenes/rakko.png", 
-    "descripcion": "Es un cazador habilidoso que cuida de sus amigos." }
+  { id: "1", nombre: "Chiikawa", rol: "Tierno", origen: "Mundo Chiikawa", imagen: "./imagenes/chiikawa.png", descripcion: "Es tímido, amable y siempre intenta ser valiente." },
+  { id: "2", nombre: "Hachiware", rol: "Optimista", origen: "Mundo Chiikawa", imagen: "./imagenes/hachiware.png", descripcion: "Un amigo alegre que siempre ayuda a los demás." },
+  { id: "3", nombre: "Usagi", rol: "Aventurero", origen: "Mundo Chiikawa", imagen: "./imagenes/usagi.png", descripcion: "Le encanta divertirse y gritar ¡Yaha!" },
+  { id: "4", nombre: "Momonga", rol: "Travieso", origen: "Mundo Chiikawa", imagen: "./imagenes/momonga.png", descripcion: "Le gusta llamar la atención y parecer adorable." },
+  { id: "5", nombre: "Kurimanju", rol: "Tranquilo", origen: "Mundo Chiikawa", imagen: "./imagenes/kurimanju.png", descripcion: "Disfruta la comida, las bebidas y los momentos relajados." },
+  { id: "6", nombre: "Rakko", rol: "Valiente", origen: "Mundo Chiikawa", imagen: "./imagenes/rakko.png", descripcion: "Es un cazador habilidoso que cuida de sus amigos." }
 ];
-const personajesGuardados = localStorage.getItem(clave);
-let personajes = personajesGuardados ? JSON.parse(personajesGuardados) : ejemplos;
-let seleccionado = "";
+ejemplos.forEach(p => { p.fechaCreacion = "2026-10-01T12:00:00Z"; });
+
 const $ = id => document.getElementById(id);
+let personajes = cargarPersonajes();
+let seleccionado = "";
+
+function cargarPersonajes() {
+  try {
+    const datos = localStorage.getItem(clave);
+    if (datos === null) {
+      try { localStorage.setItem(clave, JSON.stringify(ejemplos)); } catch (e) { /* almacenamiento no disponible */ }
+      return ejemplos;
+    }
+    const lista = JSON.parse(datos);
+    return Array.isArray(lista) ? lista.filter(p => p && typeof p.id === "string" && typeof p.nombre === "string" && p.nombre.trim() && typeof p.rol === "string" && p.rol.trim()) : [];
+  } catch (e) { return []; }
+}
+
+function guardarPersonajes(lista, mensaje) {
+  try {
+    localStorage.setItem(clave, JSON.stringify(lista));
+    personajes = lista;
+    $("aviso").textContent = mensaje;
+    $("aviso").classList.remove("is-hidden");
+    renderizarGrid();
+    return true;
+  } catch (e) {
+    alert("No se pudo guardar. Revisa el espacio disponible en el navegador.");
+    return false;
+  }
+}
+
 function normalizar(texto) {
   return String(texto || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
+
 function escapar(texto) {
   return String(texto || "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 }
-function filtrar(texto) {
+
+function filtrarPersonajes(texto) {
+  const coincide = p => normalizar(p.nombre + " " + p.rol).includes(texto);
   const resultados = [];
   let i = 0;
   while (i < personajes.length && resultados.length === 0) {
-    if (normalizar(personajes[i].nombre + " " + personajes[i].rol).includes(texto)) resultados.push(personajes[i]);
+    if (coincide(personajes[i])) resultados.push(personajes[i]);
     i++;
   }
   while (i < personajes.length) {
-    if (normalizar(personajes[i].nombre + " " + personajes[i].rol).includes(texto)) resultados.push(personajes[i]);
+    if (coincide(personajes[i])) resultados.push(personajes[i]);
     i++;
   }
   return resultados;
 }
+
 function fotoHTML(p) {
   return `<div class="foto"><span class="inicial">${escapar(p.nombre.charAt(0))}</span>${p.imagen ? `<img src="${escapar(p.imagen)}" alt="${escapar(p.nombre)}">` : ""}</div>`;
 }
-function comprobarImagen(elemento) {
-  const img = elemento.querySelector("img");
+
+function comprobarImagen(contenedor) {
+  const img = contenedor.querySelector("img");
   if (img) img.addEventListener("error", () => img.remove());
 }
-function cerrarModales() {
-  document.querySelectorAll(".modal").forEach(m => m.classList.remove("is-active"));
-}
-function abrirDetalle(id) {
-  const p = personajes.find(p => p.id === id);
-  if (!p) return;
-  seleccionado = id;
-  $("detalle").innerHTML = `${fotoHTML(p)}<div class="has-text-centered">
-    <h2 class="title is-3">${escapar(p.nombre)}</h2>
-    <p class="dato-personaje"><strong>Rol:</strong> ${escapar(p.rol)}</p>
-    <p class="dato-personaje"><strong>Origen:</strong> ${escapar(p.origen || "Desconocido")}</p>
-    <p class="mt-3">${escapar(p.descripcion || "Un amigo especial.")}</p></div>`;
-  comprobarImagen($("detalle"));
-  cerrarModales();
-  $("modalDetalle").classList.add("is-active");
-}
+
 function renderizarGrid() {
-  const texto = normalizar($("busqueda").value.trim());
-  const resultados = filtrar(texto);
+  const termino = normalizar($("busqueda").value.trim());
+  const resultados = filtrarPersonajes(termino);
   $("grid").innerHTML = "";
   $("contador").textContent = `${resultados.length} personaje(s) encontrado(s)`;
+
   resultados.forEach(p => {
     const columna = document.createElement("div");
     columna.className = "column is-one-third-desktop is-half-tablet";
@@ -104,56 +88,94 @@ function renderizarGrid() {
     comprobarImagen(columna);
     $("grid").appendChild(columna);
   });
+
   $("vacio").classList.toggle("is-hidden", resultados.length > 0);
-  $("limpiar").classList.toggle("is-hidden", !texto);
+  $("limpiar").classList.toggle("is-hidden", !termino);
   $("mensajeVacio").textContent = personajes.length === 0
-    ? "Tu colección está vacía." : "Sin resultados. Prueba otra búsqueda ♡";
+    ? "Tu colección está vacía. ¡Agrega a tu primer amigo!"
+    : "No encontramos personajes. Prueba otra búsqueda ♡";
 }
 
-function guardarPersonajes(lista, mensaje) {
-  localStorage.setItem(clave, JSON.stringify(lista));
-  personajes = lista;
-  $("aviso").textContent = mensaje;
-  $("aviso").classList.remove("is-hidden");
-  renderizarGrid();
+function cerrarModales() {
+  document.querySelectorAll(".modal").forEach(m => m.classList.remove("is-active"));
 }
+
+function abrirDetalle(id) {
+  const p = personajes.find(personaje => personaje.id === id);
+  if (!p) return;
+  seleccionado = id;
+  $("detalle").innerHTML = `${fotoHTML(p)}<div class="has-text-centered">
+    <h2 class="title is-3">${escapar(p.nombre)}</h2>
+    <p class="dato-personaje"><strong>Rol:</strong> ${escapar(p.rol)}</p>
+    <p class="dato-personaje"><strong>Origen:</strong> ${escapar(p.origen || "Desconocido")}</p>
+    <p class="mt-3">${escapar(p.descripcion || "Un amigo muy especial.")}</p>
+    </div>`;
+  comprobarImagen($("detalle"));
+  cerrarModales();
+  $("modalDetalle").classList.add("is-active");
+}
+
 function abrirFormulario(id = "") {
   $("formPersonaje").reset();
+  ["nombre", "rol", "imagen"].forEach(campo => $(campo).setCustomValidity(""));
   $("idPersonaje").value = id;
-  const p = personajes.find(p => p.id === id);
+  const p = personajes.find(personaje => personaje.id === id);
   $("tituloFormulario").textContent = p ? "Editar amigo ♡" : "Agregar amigo ♡";
-  if (p) ["nombre", "rol", "origen", "imagen", "descripcion"].forEach(c => $(c).value = p[c] || "");
+  if (p) ["nombre", "rol", "origen", "imagen", "descripcion"].forEach(campo => $(campo).value = p[campo] || "");
   cerrarModales();
   $("modalFormulario").classList.add("is-active");
 }
-$("formPersonaje").addEventListener("submit", e => {
-  e.preventDefault();
+
+$("formPersonaje").addEventListener("submit", evento => {
+  evento.preventDefault();
   const id = $("idPersonaje").value;
   const nombre = $("nombre").value.trim();
   const rol = $("rol").value.trim();
-  if (!nombre || !rol) return alert("Escribe el nombre y el rol.");
+  const imagen = $("imagen").value.trim();
+
+  if (!nombre || !rol) {
+    const campo = !nombre ? $("nombre") : $("rol");
+    campo.setCustomValidity("Este campo es obligatorio.");
+    campo.reportValidity();
+    return;
+  }
+  if (personajes.some(p => normalizar(p.nombre) === normalizar(nombre) && p.id !== id)) {
+    $("nombre").setCustomValidity("Ya existe un personaje con ese nombre.");
+    $("nombre").reportValidity();
+    return;
+  }
+  if (imagen && !/\.(png|jpe?g)(\?.*)?$/i.test(imagen)) {
+    $("imagen").setCustomValidity("Utiliza una imagen PNG o JPG.");
+    $("imagen").reportValidity();
+    return;
+  }
+
   const anterior = personajes.find(p => p.id === id);
   const personaje = {
-    id: id || Date.now().toString(), nombre, rol,
-    origen: $("origen").value.trim(), imagen: $("imagen").value.trim(),
+    id: id || Date.now().toString() + Math.random().toString(36).slice(2, 6),
+    nombre, rol,
+    origen: $("origen").value.trim(), imagen,
     descripcion: $("descripcion").value.trim(),
     fechaCreacion: anterior ? anterior.fechaCreacion : new Date().toISOString()
   };
   const lista = id ? personajes.map(p => p.id === id ? personaje : p) : [...personajes, personaje];
-  guardarPersonajes(lista, id ? "Personaje modificado ♡" : "Personaje agregado ♡");
-  cerrarModales();
-  if (id) abrirDetalle(id);
-});
-$("editar").addEventListener("click", () => abrirFormulario(seleccionado));
-$("eliminar").addEventListener("click", () => {
-  const p = personajes.find(p => p.id === seleccionado);
-  if (p && confirm(`¿Eliminar a ${p.nombre}?`)) {
-    guardarPersonajes(personajes.filter(p => p.id !== seleccionado), "Personaje eliminado.");
+  if (guardarPersonajes(lista, id ? "¡Personaje actualizado! ♡" : "¡Nuevo amigo agregado! ♡")) {
     cerrarModales();
+    if (id) abrirDetalle(id);
   }
 });
-$("nuevo").addEventListener("click", () => abrirFormulario());
+
+["nombre", "rol", "imagen"].forEach(id => $(id).addEventListener("input", () => $(id).setCustomValidity("")));
 $("busqueda").addEventListener("input", renderizarGrid);
 $("limpiar").addEventListener("click", () => { $("busqueda").value = ""; renderizarGrid(); });
+$("nuevo").addEventListener("click", () => abrirFormulario());
+$("editar").addEventListener("click", () => abrirFormulario(seleccionado));
+$("eliminar").addEventListener("click", () => {
+  const p = personajes.find(personaje => personaje.id === seleccionado);
+  if (p && confirm(`¿Quieres eliminar a ${p.nombre} de tu colección?`)) {
+    if (guardarPersonajes(personajes.filter(personaje => personaje.id !== seleccionado), "Personaje eliminado.")) cerrarModales();
+  }
+});
 document.querySelectorAll(".cerrar-modal").forEach(b => b.addEventListener("click", cerrarModales));
+
 renderizarGrid();

@@ -1,0 +1,62 @@
+[
+  {
+    "id": "1",
+    "nombre": "Chiikawa",
+    "rol": "Tierno",
+    "origen": "Mundo Chiikawa",
+    "imagen": "./imagenes/chiikawa.png",
+    "descripcion": "Es tímido, amable y siempre intenta ser valiente.",
+    "fechaCreacion": "2026-10-01T12:00:00Z",
+    "favorito": false
+  },
+  {
+    "id": "2",
+    "nombre": "Hachiware",
+    "rol": "Optimista",
+    "origen": "Mundo Chiikawa",
+    "imagen": "./imagenes/hachiware.png",
+    "descripcion": "Un amigo alegre que siempre ayuda a los demás.",
+    "fechaCreacion": "2026-10-01T12:00:00Z",
+    "favorito": false
+  },
+  {
+    "id": "3",
+    "nombre": "Usagi",
+    "rol": "Aventurero",
+    "origen": "Mundo Chiikawa",
+    "imagen": "./imagenes/usagi.png",
+    "descripcion": "Le encanta divertirse y gritar ¡Yaha!",
+    "fechaCreacion": "2026-10-01T12:00:00Z",
+    "favorito": false
+  },
+  {
+    "id": "4",
+    "nombre": "Momonga",
+    "rol": "Travieso",
+    "origen": "Mundo Chiikawa",
+    "imagen": "./imagenes/momonga.png",
+    "descripcion": "Le gusta llamar la atención y parecer adorable.",
+    "fechaCreacion": "2026-10-01T12:00:00Z",
+    "favorito": false
+  },
+  {
+    "id": "5",
+    "nombre": "Kurimanju",
+    "rol": "Tranquilo",
+    "origen": "Mundo Chiikawa",
+    "imagen": "./imagenes/kurimanju.png",
+    "descripcion": "Disfruta la comida, las bebidas y los momentos relajados.",
+    "fechaCreacion": "2026-10-01T12:00:00Z",
+    "favorito": false
+  },
+  {
+    "id": "6",
+    "nombre": "Rakko",
+    "rol": "Valiente",
+    "origen": "Mundo Chiikawa",
+    "imagen": "./imagenes/rakko.png",
+    "descripcion": "Es un cazador habilidoso que cuida de sus amigos.",
+    "fechaCreacion": "2026-10-01T12:00:00Z",
+    "favorito": false
+  }
+]
