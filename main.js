@@ -7,11 +7,12 @@ const ejemplos = [
   { id: "5", nombre: "Kurimanju", rol: "Tranquilo", origen: "Mundo Chiikawa", imagen: "./imagenes/kurimanju.png", descripcion: "Disfruta la comida, las bebidas y los momentos relajados." },
   { id: "6", nombre: "Rakko", rol: "Valiente", origen: "Mundo Chiikawa", imagen: "./imagenes/rakko.png", descripcion: "Es un cazador habilidoso que cuida de sus amigos." }
 ];
-ejemplos.forEach(p => { p.fechaCreacion = "2026-10-01T12:00:00Z"; });
+ejemplos.forEach(p => { p.fechaCreacion = "2026-10-01T12:00:00Z"; p.favorito = false; });
 
 const $ = id => document.getElementById(id);
 let personajes = cargarPersonajes();
 let seleccionado = "";
+let soloFavoritos = false;
 
 function cargarPersonajes() {
   try {
@@ -73,7 +74,9 @@ function comprobarImagen(contenedor) {
 
 function renderizarGrid() {
   const termino = normalizar($("busqueda").value.trim());
-  const resultados = filtrarPersonajes(termino);
+  const resultados = filtrarPersonajes(termino).filter(p => !soloFavoritos || p.favorito);
+  const totalFavoritos = personajes.filter(p => p.favorito).length;
+  $("cantidadFavoritos").textContent = totalFavoritos;
   $("grid").innerHTML = "";
   $("contador").textContent = `${resultados.length} personaje(s) encontrado(s)`;
 
@@ -81,10 +84,14 @@ function renderizarGrid() {
     const columna = document.createElement("div");
     columna.className = "column is-one-third-desktop is-half-tablet";
     columna.innerHTML = `<div class="card tarjeta">${fotoHTML(p)}
+      <button class="button corazon ${p.favorito ? "marcado" : ""}" type="button"
+        aria-label="${p.favorito ? "Quitar de" : "Agregar a"} favoritos" aria-pressed="${!!p.favorito}">
+        ${p.favorito ? "♥" : "♡"}</button>
       <div class="card-content"><h3 class="title is-4">${escapar(p.nombre)}</h3>
       <span class="tag mb-4">${escapar(p.rol)}</span><br>
       <button class="button boton-azul ver-detalle" type="button">Ver detalles ♡</button></div></div>`;
     columna.querySelector(".ver-detalle").addEventListener("click", () => abrirDetalle(p.id));
+    columna.querySelector(".corazon").addEventListener("click", () => cambiarFavorito(p.id));
     comprobarImagen(columna);
     $("grid").appendChild(columna);
   });
@@ -93,7 +100,29 @@ function renderizarGrid() {
   $("limpiar").classList.toggle("is-hidden", !termino);
   $("mensajeVacio").textContent = personajes.length === 0
     ? "Tu colección está vacía. ¡Agrega a tu primer amigo!"
-    : "No encontramos personajes. Prueba otra búsqueda ♡";
+    : soloFavoritos && totalFavoritos === 0 && !termino
+      ? "Aún no tienes favoritos. Presiona ♡ en la tarjeta de un amigo."
+      : "No encontramos personajes. Prueba otra búsqueda ♡";
+}
+
+function cambiarVista(favoritos) {
+  soloFavoritos = favoritos;
+  $("verTodos").classList.toggle("activo", !favoritos);
+  $("verFavoritos").classList.toggle("activo", favoritos);
+  $("verTodos").setAttribute("aria-pressed", String(!favoritos));
+  $("verFavoritos").setAttribute("aria-pressed", String(favoritos));
+  $("tituloColeccion").textContent = favoritos ? "Mis favoritos ♡" : "Mi colección";
+  $("descripcionColeccion").textContent = favoritos
+    ? "Aquí están los amiguitos que marcaste con un corazón."
+    : "Un lugar para guardar a todos mis amiguitos.";
+  renderizarGrid();
+}
+
+function cambiarFavorito(id) {
+  const lista = personajes.map(p => p.id === id ? { ...p, favorito: !p.favorito } : p);
+  if (guardarPersonajes(lista, "¡Favoritos actualizados! ♡") && $("modalDetalle").classList.contains("is-active")) {
+    abrirDetalle(id);
+  }
 }
 
 function cerrarModales() {
@@ -109,7 +138,8 @@ function abrirDetalle(id) {
     <p class="dato-personaje"><strong>Rol:</strong> ${escapar(p.rol)}</p>
     <p class="dato-personaje"><strong>Origen:</strong> ${escapar(p.origen || "Desconocido")}</p>
     <p class="mt-3">${escapar(p.descripcion || "Un amigo muy especial.")}</p>
-    </div>`;
+    <button class="button boton-rosa favorito-detalle" type="button">${p.favorito ? "♥ Quitar de favoritos" : "♡ Añadir a favoritos"}</button></div>`;
+  $("detalle").querySelector(".favorito-detalle").addEventListener("click", () => cambiarFavorito(id));
   comprobarImagen($("detalle"));
   cerrarModales();
   $("modalDetalle").classList.add("is-active");
@@ -156,6 +186,7 @@ $("formPersonaje").addEventListener("submit", evento => {
     nombre, rol,
     origen: $("origen").value.trim(), imagen,
     descripcion: $("descripcion").value.trim(),
+    favorito: anterior ? !!anterior.favorito : false,
     fechaCreacion: anterior ? anterior.fechaCreacion : new Date().toISOString()
   };
   const lista = id ? personajes.map(p => p.id === id ? personaje : p) : [...personajes, personaje];
@@ -169,6 +200,8 @@ $("formPersonaje").addEventListener("submit", evento => {
 $("busqueda").addEventListener("input", renderizarGrid);
 $("limpiar").addEventListener("click", () => { $("busqueda").value = ""; renderizarGrid(); });
 $("nuevo").addEventListener("click", () => abrirFormulario());
+$("verTodos").addEventListener("click", () => cambiarVista(false));
+$("verFavoritos").addEventListener("click", () => cambiarVista(true));
 $("editar").addEventListener("click", () => abrirFormulario(seleccionado));
 $("eliminar").addEventListener("click", () => {
   const p = personajes.find(personaje => personaje.id === seleccionado);
@@ -177,5 +210,11 @@ $("eliminar").addEventListener("click", () => {
   }
 });
 document.querySelectorAll(".cerrar-modal").forEach(b => b.addEventListener("click", cerrarModales));
+
+document.addEventListener("click", e => {
+  const texto = e.target.closest("h1, h2, h3, p, span, label");
+  if (texto) texto.classList.add("camaron_saltando");
+});
+document.addEventListener("animationend", e => e.target.classList.remove("camaron_saltando"));
 
 renderizarGrid();

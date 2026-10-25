@@ -18,7 +18,7 @@
         <div class="columns is-vcentered">
           <div class="column is-6">
             <p class="etiqueta">✿ UN MUNDO PEQUEÑITO Y ADORABLE ✿</p>
-            <h1 class="title is-1">Chiikawa <span>& Friends ♡</span></h1>
+            <h1 class="title is-1 Camaron_salteado">Chiikawa <span>& Friends ♡</span></h1>
             <p class="subtitle">¡Bienvenido a mi rincón de personajes favoritos!</p>
             <p>Conoce a estos pequeños amigos y marca con un corazón a tus favoritos.</p>
             <a class="button boton-rosa mt-5" href="#coleccion">Conocer a mis amigos ♡</a>
@@ -44,16 +44,22 @@
           <p id="descripcionColeccion">Un lugar para guardar a todos mis amiguitos.</p>
         </div>
         <div class="column is-4">
-          <input class="input" id="busqueda" type="search" placeholder="Buscar por nombre o rol..."
+          <input class="input Camaron_salteado" id="busqueda" type="search" placeholder="Buscar por nombre o rol..."
             aria-label="Buscar personajes">
         </div>
         <div class="column is-3">
-          <button class="button boton-rosa is-fullwidth" id="nuevo">+ Agregar amigo</button>
+          <button class="button boton-rosa is-fullwidth Camaron_salteado" id="nuevo">+ Agregar amigo</button>
         </div>
       </div>
 
+      <div class="buttons pestañas-coleccion" role="group" aria-label="Ver colección o favoritos">
+        <button class="button boton-vista activo" id="verTodos" type="button" aria-pressed="true">Todos los
+          amigos</button>
+        <button class="button boton-vista" id="verFavoritos" type="button" aria-pressed="false">♥ Mis favoritos (<span
+            id="cantidadFavoritos">0</span>)</button>
+      </div>
       <p class="contador" id="contador"></p>
-      <div class="columns is-multiline" id="grid"></div>
+      <div class="columns is-multiline Camaron_salteado" id="grid"></div>
       <div class="notification estado-vacio is-hidden" id="vacio">
         <p id="mensajeVacio"></p>
         <button class="button boton-azul mt-3 is-hidden" id="limpiar">Limpiar búsqueda</button>
@@ -62,7 +68,7 @@
     </div>
   </main>
 
-  <footer class="footer">
+  <footer class="footer Camaron_salteado">
     <p>Hecho con cariño ♡ · Proyecto escolar inspirado en Chiikawa</p>
   </footer>
 

@@ -118,6 +118,23 @@ body {
   color: #4c798e;
 }
 
+.pestañas-coleccion {
+  margin-top: 25px;
+  gap: 12px;
+}
+
+.boton-vista {
+  background: white;
+  color: var(--cafe);
+  border: 2px solid #f3dbcd;
+}
+
+.boton-vista.activo {
+  background: var(--rosa);
+  border-color: var(--rosa);
+  color: #805665;
+}
+
 .contador {
   margin: 20px 0;
   color: #9e8a7d;
@@ -164,6 +181,30 @@ body {
 .inicial {
   font-size: 85px;
   color: #e8acbd;
+}
+
+.corazon {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  border: none;
+  border-radius: 50%;
+  width: 43px;
+  height: 43px;
+  background: white;
+  color: #df86a5;
+  font-size: 27px;
+  z-index: 1;
+}
+
+.corazon:hover,
+.corazon.marcado {
+  background: #ffe3ed;
+  color: #dd6892;
+}
+
+.favorito-detalle {
+  margin-top: 18px;
 }
 
 .estado-vacio {
@@ -223,6 +264,22 @@ body {
   text-align: center;
   background: #fce4e8;
   color: var(--cafe);
+}
+
+.camaron_saltando {
+  animation: saltito .45s ease;
+}
+
+@keyframes saltito {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 @media (max-width: 768px) {
