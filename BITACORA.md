@@ -2,15 +2,22 @@
 
 **Alumno:** Ana Maritza Arellano Ortiz
 
-**1. ¿Por qué un ID único en vez del nombre?** Cada personaje necesita una identidad que no cambie cuando se edite su nombre. Si se usara el nombre y hubiera dos iguales, sería difícil decidir cuál editar o eliminar. El ID se asigna al crear el personaje; además, por claridad, el formulario no permite nombres duplicados.
+*** 1. ¿Por qué usar un ID único en lugar de identificar al personaje por su nombre? ***
 
-**2. ¿Por qué guardar todo en una sola clave de localStorage?** Un arreglo guardado como JSON simplifica agregar, editar, eliminar y recuperar los personajes. Guardarlos en distintas claves podría permitir cambiar uno sin reescribir toda la colección, pero sería más difícil recorrerlos y mantenerlos organizados. Se usa `JSON.stringify` al guardar y `JSON.parse` al cargar.
+Considero que es mejor utilizar un ID porque así cada personaje tiene su propia identificación. Aunque dos personajes llegaran a tener el mismo nombre, el programa podría diferenciarlos sin confundirse al momento de editarlos o eliminarlos. En mi proyecto también decidí evitar los nombres repetidos para mantener la colección más organizada.
 
-**3. ¿Por qué buscar en cada tecla?** Da resultados inmediatamente, sin pedir otro clic. Con seis personajes funciona bien y es fácil de entender. Con miles convendría retrasar unos milisegundos la búsqueda para mejorar el rendimiento. Aquí se usa `while` de forma limitada: si no existe coincidencia se detiene cuando se agota el arreglo, evitando un ciclo infinito y permitiendo mostrar «Sin resultados».
+*** 3. ¿La búsqueda debe ejecutarse en cada tecla o al presionar Enter? ***
 
-**4. ¿Qué pasa si localStorage tiene JSON inválido?** `JSON.parse` puede producir un error. Por eso la carga está dentro de `try/catch`, y el programa muestra una colección vacía en lugar de bloquearse. Como alternativa se podrían recuperar los datos desde un respaldo, pero esta versión no tiene servidor ni copias externas.
+Para mi proyecto preferí que la búsqueda se realizara mientras escribimos, ya que es más cómodo encontrar rápidamente a un personaje sin tener que presionar Enter. Como mi colección de Chiikawa empieza con pocos personajes, funciona bastante bien. Sin embargo, si tuviera 1,000 personajes, habría que buscar una manera de evitar que la página se volviera lenta.
 
-**5. ¿Se permiten espacios en blanco o nombres duplicados?** No. `trim()` elimina espacios al principio y final, y se comprueba que el nombre tenga contenido. Los nombres se comparan sin distinguir mayúsculas ni acentos. La alternativa sería permitir nombres iguales, porque las identidades se basan en IDs, pero para esta colección pequeña resulta más claro evitar repeticiones.
+*** 5. ¿Qué pasa si la URL de la imagen no existe? ***
 
+Decidí que, si una imagen no se encuentra o no puede cargarse, aparezca la primera letra del nombre del personaje. De esta manera, la tarjeta no queda con una imagen rota y sigue siendo fácil identificar al personaje. Además, ayuda a que la página conserve una apariencia ordenada.
 
-**6. ¿Por qué añadir favoritos?** Es una mejora sencilla que permite separar los personajes preferidos de la colección general sin duplicarlos. Cada personaje tiene un campo booleano `favorito`, almacenado junto a los demás datos. Así se mantiene al editar y al recargar la página. Una alternativa sería guardar los IDs favoritos en otra clave, pero aumentaría la complejidad de sincronización al eliminar personajes.
+*** 9. Si un compañero abre tu URL de GitHub Pages, ¿verá tus personajes? ***
+
+Si un compañero abre mi página, podrá ver los personajes que vienen incluidos originalmente, pero no los cambios que yo haya realizado en mi navegador. Esto sucede porque cada persona guarda su propia colección en su dispositivo. Me parece útil porque así cada quien puede personalizar su colección de Chiikawa sin modificar la de los demás.
+
+*** 10. Propón una funcionalidad adicional y justifica por qué tiene más valor que otras alternativas. ***
+
+Una función que decidí agregar fue la sección de favoritos, donde podemos marcar a nuestros personajes preferidos utilizando un corazón. Elegí esta opción porque me pareció más divertida y útil para la temática de Chiikawa. Aunque también podría haber agregado otras funciones, como ordenar personajes por su rol, considero que los favoritos hacen que la página se sienta más personal y permiten encontrar rápidamente a nuestros personajes preferidos.
